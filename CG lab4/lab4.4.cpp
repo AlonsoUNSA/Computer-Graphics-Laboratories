@@ -81,7 +81,7 @@ GLvoid initGL() {
   glClearColor(RED, GREEN, BLUE, ALPHA);
 }
 void draw_head() {
-  glColor3f(1.0f, 0.9f, 0.2f); // amarillo
+  glColor3f(1.0f, 0.9f, 0.2f);
   glPushMatrix();
   glScalef(2.0f, 2.0f, 1.0f);
   glutSolidCube(1.0f);
@@ -89,7 +89,7 @@ void draw_head() {
 }
 
 void draw_torso() {
-  glColor3f(0.3f, 0.5f, 0.9f); // azul
+  glColor3f(0.3f, 0.5f, 0.9f);
   glPushMatrix();
   glScalef(3.0f, 4.0f, 1.0f);
   glutSolidCube(1.0f);
@@ -97,7 +97,7 @@ void draw_torso() {
 }
 
 void draw_arm() {
-  glColor3f(0.3f, 0.8f, 0.4f); // verde
+  glColor3f(0.3f, 0.8f, 0.4f);
   glPushMatrix();
   glScalef(1.0f, 3.0f, 1.0f);
   glutSolidCube(1.0f);
@@ -105,7 +105,7 @@ void draw_arm() {
 }
 
 void draw_leg() {
-  glColor3f(0.9f, 0.4f, 0.2f); // naranja
+  glColor3f(0.9f, 0.4f, 0.2f);
   glPushMatrix();
   glScalef(1.2f, 3.5f, 1.0f);
   glutSolidCube(1.0f);
@@ -119,10 +119,10 @@ void draw_figure() {
   // Posicionar figura en el centro de la escena
   glTranslatef(0.0f, 0.0f, 0.0f);
 
-  // --- TORSO (centro de la jerarquía) ---
+  // --- TORSO  ---
   draw_torso();
 
-  // --- CABEZA (encima del torso) ---
+  // --- CABEZA ---
   glPushMatrix();
   glTranslatef(0.0f, 3.0f, 0.0f); // subir al tope del torso
   draw_head();

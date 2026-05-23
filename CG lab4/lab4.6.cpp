@@ -117,18 +117,27 @@ void apply_scale(float sx, float sy) {
   glMultMatrixf(m);
 }
 void apply_combined(float tx, float tz, float rotY, float sc) {
-  // 1) Matriz de traslación
-  GLfloat mT[16] = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, tx, 0, tz, 1};
+  //  Matriz de traslación
+  GLfloat mT[16] = {1, 0, 0, 0, 
+                    0, 1, 0, 0, 
+                    0, 0, 1, 0, 
+                    tx, 0, tz, 1};
 
-  // 2) Matriz de rotación en Y
+  //  Matriz de rotación en Y
   float rad = rotY * M_PI / 180.0f;
   float c = cos(rad), s = sin(rad);
-  GLfloat mR[16] = {c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1};
+  GLfloat mR[16] = {c, 0, -s, 0, 
+                    0, 1, 0, 0, 
+                    s, 0, c, 0, 
+                    0, 0, 0, 1};
 
-  // 3) Matriz de escala en X y Z
-  GLfloat mS[16] = {sc, 0, 0, 0, 0, sc, 0, 0, 0, 0, sc, 0, 0, 0, 0, 1};
+  //  Matriz de escala en X y Z
+  GLfloat mS[16] = {sc, 0, 0, 0, 
+                    0, sc, 0, 0, 
+                    0, 0, sc, 0, 
+                    0, 0, 0, 1};
 
-  // Combinar: T * R * S
+  // T * R * S
   glMultMatrixf(mT);
   glMultMatrixf(mR);
   glMultMatrixf(mS);
