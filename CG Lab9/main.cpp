@@ -58,6 +58,61 @@ int main(int argc, char **argv) {
 
   return 1;
 }
+void setFloorMaterial() {
+  GLfloat ambient[] = {0.1f, 0.25f, 0.1f, 1.0f};
+  GLfloat diffuse[] = {0.2f, 0.6f, 0.2f, 1.0f};
+  GLfloat specular[] = {0.05f, 0.05f, 0.05f, 1.0f};
+  GLfloat shininess = 8.0f;
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+  glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+}
+void setWallMaterial() {
+  GLfloat ambient[] = {0.3f, 0.05f, 0.05f, 1.0f};
+  GLfloat diffuse[] = {0.8f, 0.1f, 0.1f, 1.0f};
+  GLfloat specular[] = {0.2f, 0.2f, 0.2f, 1.0f};
+  GLfloat shininess = 16.0f;
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+  glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+}
+void setRoofMaterial() {
+  GLfloat ambient[] = {0.2f, 0.2f, 0.2f, 1.0f};
+  GLfloat diffuse[] = {0.6f, 0.6f, 0.6f, 1.0f};
+  GLfloat specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
+  GLfloat shininess = 32.0f;
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+  glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+}
+void setTrunkMaterial() {
+  GLfloat ambient[] = {0.2f, 0.1f, 0.05f, 1.0f};
+  GLfloat diffuse[] = {0.55f, 0.27f, 0.07f, 1.0f};
+  GLfloat specular[] = {0.1f, 0.1f, 0.1f, 1.0f};
+  GLfloat shininess = 10.0f;
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+  glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+}
+void setLeavesMaterial() {
+  GLfloat ambient[] = {0.0f, 0.2f, 0.0f, 1.0f};
+  GLfloat diffuse[] = {0.0f, 0.6f, 0.0f, 1.0f};
+  GLfloat specular[] = {0.1f, 0.3f, 0.1f, 1.0f};
+  GLfloat shininess = 20.0f;
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+  glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+}
 
 GLvoid initGL() {
   GLfloat position[] = {0.0f, 5.0f, 10.0f, 0.0};
@@ -145,6 +200,8 @@ void drawFloor() {
 }
 void drawHouse() {
 
+  glPushMatrix();
+  setWallMaterial();
   glTranslatef(0, 0, 10);
   glBegin(GL_QUADS);
   // Pared frontal
@@ -177,6 +234,7 @@ void drawHouse() {
   glVertex3f(-6, 6, -4);
   glEnd();
   // Techo
+  setRoofMaterial();
   // triangulo frontal
   // glColor3f(1, 0.25, 0.25);
   glBegin(GL_TRIANGLES);
@@ -212,6 +270,7 @@ void drawTree() {
   // glColor3f(0.55, 0.27, 0.07); // Brown color for the trunk
   glTranslatef(0.0f, 1.0f, -10.0f);
   glRotatef(-90, 1, 0, 0);
+  setTrunkMaterial();
   GLUquadric *quad = gluNewQuadric();
   gluCylinder(quad, 2.0f, 2.0f, 12.0f, 32, 32); // Draw the cylinder
   gluDeleteQuadric(quad);
@@ -219,7 +278,8 @@ void drawTree() {
   // drawSphere
   // glColor3f(0.0f, 0.5f, 0.0f);     // Green color for the foliage
   glTranslatef(0.0f, 0.0f, 12.0f); // Move to the top of the trunk
-  glutSolidSphere(4.0f, 32, 32);   // Draw the sphere for foliage
+  setLeavesMaterial();
+  glutSolidSphere(4.0f, 32, 32); // Draw the sphere for foliage
   glPopMatrix();
 }
 
@@ -235,11 +295,15 @@ GLvoid window_display() {
   gluLookAt(cameraX, cameraHeight, cameraZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
   // drawCube(-5);
+  setWallMaterial();
   drawCube(0);
-  // drawCube(5);
 
+  setFloorMaterial();
   drawFloor();
+
   drawHouse();
+
+  setTrunkMaterial();
   drawTree();
 
   glutSwapBuffers();
