@@ -127,12 +127,12 @@ GLvoid initGL() {
   glShadeModel(GL_SMOOTH);
 
   glEnable(GL_DEPTH_TEST);
-
   // enable material : try without it
   // glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
   // glEnable(GL_COLOR_MATERIAL);
 
   glClearColor(RED, GREEN, BLUE, ALPHA);
+  glEnable(GL_NORMALIZE);
 }
 void drawCube(float x) {
   glPushMatrix();
@@ -192,10 +192,12 @@ void drawFloor() {
   glPushMatrix();
   glBegin(GL_QUADS);
   // glColor3f(0.5, 0.9, 0.5);
+  glNormal3f(0.0f, 1.0f, 0.0f);
   glVertex3f(-20, -1, -20);
   glVertex3f(20, -1, -20);
   glVertex3f(20, -1, 20);
   glVertex3f(-20, -1, 20);
+  glPopMatrix();
   glEnd();
 }
 void drawHouse() {
@@ -207,6 +209,7 @@ void drawHouse() {
   // Pared frontal
   // glColor3f(1, 0, 0); // Rojo
 
+  glNormal3f(0, 0, 1);
   glVertex3f(-6, -1, 4);
   glVertex3f(6, -1, 4);
   glVertex3f(6, 6, 4);
@@ -214,6 +217,7 @@ void drawHouse() {
 
   // Pared trasera
   // glColor3f(0, 1, 0); // Verde
+  glNormal3f(0, 0, -1);
   glVertex3f(-6, -1, -4);
   glVertex3f(-6, 6, -4);
   glVertex3f(6, 6, -4);
@@ -221,6 +225,7 @@ void drawHouse() {
 
   // Pared lateral derecha
   // glColor3f(1, 0.5, 0.5); // Rojo claro
+  glNormal3f(1, 0, 0);
   glVertex3f(6, -1, -4);
   glVertex3f(6, 6, -4);
   glVertex3f(6, 6, 4);
@@ -228,33 +233,39 @@ void drawHouse() {
 
   // pared lateral izquierda
   // glColor3f(1, 0.5, 0.5); // Rojo claro
+  glNormal3f(-1, 0, 0);
   glVertex3f(-6, -1, -4);
   glVertex3f(-6, -1, 4);
   glVertex3f(-6, 6, 4);
   glVertex3f(-6, 6, -4);
   glEnd();
   // Techo
-  setRoofMaterial();
   // triangulo frontal
   // glColor3f(1, 0.25, 0.25);
   glBegin(GL_TRIANGLES);
+  glNormal3f(0, 0, 1);
   glVertex3f(-6, 6, 4);
   glVertex3f(6, 6, 4);
   glVertex3f(0, 10, 4);
   // triangulo trasero
+  glNormal3f(0, 0, -1);
   glVertex3f(-6, 6, -4);
   glVertex3f(0, 10, -4);
   glVertex3f(6, 6, -4);
   glEnd();
+
+  setRoofMaterial();
   // rectangulo lateral dere
   glBegin(GL_QUADS);
   // color gris
   // glColor3f(0.5, 0.5, 0.5);
+  glNormal3f(0.555f, 0.832f, 0.0f);
   glVertex3f(6, 6, -4);
   glVertex3f(0, 10, -4);
   glVertex3f(0, 10, 4);
   glVertex3f(6, 6, 4);
   // rectangulo lateral izq
+  glNormal3f(-0.555f, 0.832f, 0.0f);
   glVertex3f(-6, 6, -4);
   glVertex3f(-6, 6, 4);
   glVertex3f(0, 10, 4);
@@ -296,7 +307,7 @@ GLvoid window_display() {
 
   // drawCube(-5);
   setWallMaterial();
-  drawCube(0);
+  // drawCube(0);
 
   setFloorMaterial();
   drawFloor();
