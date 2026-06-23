@@ -74,8 +74,8 @@ GLvoid initGL() {
   glEnable(GL_DEPTH_TEST);
 
   // enable material : try without it
-  glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-  glEnable(GL_COLOR_MATERIAL);
+  // glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+  // glEnable(GL_COLOR_MATERIAL);
 
   glClearColor(RED, GREEN, BLUE, ALPHA);
 }
@@ -88,42 +88,42 @@ void drawCube(float x) {
   glBegin(GL_QUADS);
 
   // Frente - rojo
-  glColor3f(1, 0, 0);
+  // glColor3f(1, 0, 0);
   glVertex3f(-1, -1, 1);
   glVertex3f(1, -1, 1);
   glVertex3f(1, 1, 1);
   glVertex3f(-1, 1, 1);
 
   // Atrás - verde
-  glColor3f(0, 1, 0);
+  // glColor3f(0, 1, 0);
   glVertex3f(-1, -1, -1);
   glVertex3f(-1, 1, -1);
   glVertex3f(1, 1, -1);
   glVertex3f(1, -1, -1);
 
   // Arriba - azul
-  glColor3f(0, 0, 1);
+  // glColor3f(0, 0, 1);
   glVertex3f(-1, 1, -1);
   glVertex3f(-1, 1, 1);
   glVertex3f(1, 1, 1);
   glVertex3f(1, 1, -1);
 
   // Abajo - amarillo
-  glColor3f(1, 1, 0);
+  // glColor3f(1, 1, 0);
   glVertex3f(-1, -1, -1);
   glVertex3f(1, -1, -1);
   glVertex3f(1, -1, 1);
   glVertex3f(-1, -1, 1);
 
   // Derecha - magenta
-  glColor3f(1, 0, 1);
+  // glColor3f(1, 0, 1);
   glVertex3f(1, -1, -1);
   glVertex3f(1, 1, -1);
   glVertex3f(1, 1, 1);
   glVertex3f(1, -1, 1);
 
   // Izquierda - cyan
-  glColor3f(0, 1, 1);
+  // glColor3f(0, 1, 1);
   glVertex3f(-1, -1, -1);
   glVertex3f(-1, -1, 1);
   glVertex3f(-1, 1, 1);
@@ -136,7 +136,7 @@ void drawCube(float x) {
 void drawFloor() {
   glPushMatrix();
   glBegin(GL_QUADS);
-  glColor3f(0.5, 0.9, 0.5);
+  // glColor3f(0.5, 0.9, 0.5);
   glVertex3f(-20, -1, -20);
   glVertex3f(20, -1, -20);
   glVertex3f(20, -1, 20);
@@ -148,7 +148,7 @@ void drawHouse() {
   glTranslatef(0, 0, 10);
   glBegin(GL_QUADS);
   // Pared frontal
-  glColor3f(1, 0, 0); // Rojo
+  // glColor3f(1, 0, 0); // Rojo
 
   glVertex3f(-6, -1, 4);
   glVertex3f(6, -1, 4);
@@ -163,14 +163,14 @@ void drawHouse() {
   glVertex3f(6, -1, -4);
 
   // Pared lateral derecha
-  glColor3f(1, 0.5, 0.5); // Rojo claro
+  // glColor3f(1, 0.5, 0.5); // Rojo claro
   glVertex3f(6, -1, -4);
   glVertex3f(6, 6, -4);
   glVertex3f(6, 6, 4);
   glVertex3f(6, -1, 4);
 
   // pared lateral izquierda
-  glColor3f(1, 0.5, 0.5); // Rojo claro
+  // glColor3f(1, 0.5, 0.5); // Rojo claro
   glVertex3f(-6, -1, -4);
   glVertex3f(-6, -1, 4);
   glVertex3f(-6, 6, 4);
@@ -178,7 +178,7 @@ void drawHouse() {
   glEnd();
   // Techo
   // triangulo frontal
-  glColor3f(1, 0.25, 0.25);
+  // glColor3f(1, 0.25, 0.25);
   glBegin(GL_TRIANGLES);
   glVertex3f(-6, 6, 4);
   glVertex3f(6, 6, 4);
@@ -191,7 +191,7 @@ void drawHouse() {
   // rectangulo lateral dere
   glBegin(GL_QUADS);
   // color gris
-  glColor3f(0.5, 0.5, 0.5);
+  // glColor3f(0.5, 0.5, 0.5);
   glVertex3f(6, 6, -4);
   glVertex3f(0, 10, -4);
   glVertex3f(0, 10, 4);
@@ -209,7 +209,7 @@ void drawHouse() {
 void drawTree() {
   // draw cinlinder
   glPushMatrix();
-  glColor3f(0.55, 0.27, 0.07); // Brown color for the trunk
+  // glColor3f(0.55, 0.27, 0.07); // Brown color for the trunk
   glTranslatef(0.0f, 1.0f, -10.0f);
   glRotatef(-90, 1, 0, 0);
   GLUquadric *quad = gluNewQuadric();
@@ -217,7 +217,7 @@ void drawTree() {
   gluDeleteQuadric(quad);
 
   // drawSphere
-  glColor3f(0.0f, 0.5f, 0.0f);     // Green color for the foliage
+  // glColor3f(0.0f, 0.5f, 0.0f);     // Green color for the foliage
   glTranslatef(0.0f, 0.0f, 12.0f); // Move to the top of the trunk
   glutSolidSphere(4.0f, 32, 32);   // Draw the sphere for foliage
   glPopMatrix();
