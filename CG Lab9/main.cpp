@@ -115,24 +115,21 @@ void setLeavesMaterial() {
 }
 
 GLvoid initGL() {
-  GLfloat position[] = {0.0f, 5.0f, 10.0f, 0.0};
-
-  // enable light: try without it
-  glLightfv(GL_LIGHT0, GL_POSITION, position);
   glEnable(GL_LIGHTING);
-  // light 0 "on": try without it
   glEnable(GL_LIGHT0);
 
-  // shading model : try GL_FLAT
-  glShadeModel(GL_SMOOTH);
-
   glEnable(GL_DEPTH_TEST);
-  // enable material : try without it
-  // glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-  // glEnable(GL_COLOR_MATERIAL);
-
-  glClearColor(RED, GREEN, BLUE, ALPHA);
   glEnable(GL_NORMALIZE);
+
+  GLfloat light_position[] = {0.0f, 10.0f, 10.0f, 0.0f};
+  GLfloat light_ambient[] = {0.2f, 0.2f, 0.2f, 1.0f};
+  GLfloat light_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+  GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+  glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+  glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+  glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 }
 void drawCube(float x) {
   glPushMatrix();
