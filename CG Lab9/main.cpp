@@ -169,11 +169,11 @@ GLvoid initGL() {
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
   glEnable(GL_TEXTURE_2D);
 
-  texGrass = loadTexture("textures/grass.jpg");
-  texBrick = loadTexture("textures/brick.jpg");
-  texRoof = loadTexture("textures/roof.jpg");
-  texBark = loadTexture("textures/bark.jpg");
-  texLeaves = loadTexture("textures/leaves.jpg");
+  texGrass = loadTexture("textures/grassTex.jpg");
+  texBrick = loadTexture("textures/brickTex.jpg");
+  texRoof = loadTexture("textures/roofTex.png");
+  texBark = loadTexture("textures/treeBarkTex.jpg");
+  texLeaves = loadTexture("textures/leavesTex.jpg");
 }
 void drawCube(float x) {
   glPushMatrix();
@@ -231,53 +231,84 @@ void drawCube(float x) {
 }
 void drawFloor() {
   glPushMatrix();
+  glBindTexture(GL_TEXTURE_2D, texGrass);
   glBegin(GL_QUADS);
   // glColor3f(0.5, 0.9, 0.5);
   glNormal3f(0.0f, 1.0f, 0.0f);
+  glTexCoord2f(0, 0);
   glVertex3f(-20, -1, -20);
+  glTexCoord2f(1, 0);
   glVertex3f(20, -1, -20);
+  glTexCoord2f(1, 1);
   glVertex3f(20, -1, 20);
+  glTexCoord2f(0, 1);
   glVertex3f(-20, -1, 20);
-  glPopMatrix();
   glEnd();
+  glPopMatrix();
 }
 void drawHouse() {
 
   glPushMatrix();
   setWallMaterial();
   glTranslatef(0, 0, 10);
+
+  glBindTexture(GL_TEXTURE_2D, texBrick);
   glBegin(GL_QUADS);
   // Pared frontal
   // glColor3f(1, 0, 0); // Rojo
 
   glNormal3f(0, 0, 1);
+
+  glTexCoord2f(0, 0);
   glVertex3f(-6, -1, 4);
+  glTexCoord2f(1, 0);
   glVertex3f(6, -1, 4);
+  glTexCoord2f(1, 1);
   glVertex3f(6, 6, 4);
+  glTexCoord2f(0, 1);
   glVertex3f(-6, 6, 4);
 
   // Pared trasera
   // glColor3f(0, 1, 0); // Verde
   glNormal3f(0, 0, -1);
+  glTexCoord2f(0, 0);
   glVertex3f(-6, -1, -4);
+
+  glTexCoord2f(0, 1);
   glVertex3f(-6, 6, -4);
+
+  glTexCoord2f(1, 1);
   glVertex3f(6, 6, -4);
+
+  glTexCoord2f(1, 0);
   glVertex3f(6, -1, -4);
 
   // Pared lateral derecha
   // glColor3f(1, 0.5, 0.5); // Rojo claro
   glNormal3f(1, 0, 0);
+
+  glTexCoord2f(0, 0);
   glVertex3f(6, -1, -4);
+
+  glTexCoord2f(0, 1);
   glVertex3f(6, 6, -4);
+
+  glTexCoord2f(1, 1);
   glVertex3f(6, 6, 4);
+
+  glTexCoord2f(1, 0);
   glVertex3f(6, -1, 4);
 
   // pared lateral izquierda
   // glColor3f(1, 0.5, 0.5); // Rojo claro
   glNormal3f(-1, 0, 0);
+  glTexCoord2f(0, 0);
   glVertex3f(-6, -1, -4);
+  glTexCoord2f(1, 0);
   glVertex3f(-6, -1, 4);
+  glTexCoord2f(1, 1);
   glVertex3f(-6, 6, 4);
+  glTexCoord2f(0, 1);
   glVertex3f(-6, 6, -4);
   glEnd();
   // Techo
@@ -285,31 +316,57 @@ void drawHouse() {
   // glColor3f(1, 0.25, 0.25);
   glBegin(GL_TRIANGLES);
   glNormal3f(0, 0, 1);
+  glTexCoord2f(0, 0);
   glVertex3f(-6, 6, 4);
+  glTexCoord2f(1, 0);
   glVertex3f(6, 6, 4);
+  glTexCoord2f(0.5, 1);
   glVertex3f(0, 10, 4);
   // triangulo trasero
   glNormal3f(0, 0, -1);
+  glTexCoord2f(0, 0);
   glVertex3f(-6, 6, -4);
+  glTexCoord2f(1, 0);
   glVertex3f(0, 10, -4);
+  glTexCoord2f(0.5, 1);
   glVertex3f(6, 6, -4);
   glEnd();
 
   setRoofMaterial();
   // rectangulo lateral dere
+
+  glBindTexture(GL_TEXTURE_2D, texRoof);
   glBegin(GL_QUADS);
   // color gris
   // glColor3f(0.5, 0.5, 0.5);
+  // lado derecho del techo
   glNormal3f(0.555f, 0.832f, 0.0f);
+
+  glTexCoord2f(1.0f, 0.0f);
   glVertex3f(6, 6, -4);
+
+  glTexCoord2f(0.0f, 0.0f);
   glVertex3f(0, 10, -4);
+
+  glTexCoord2f(0.0f, 1.0f);
   glVertex3f(0, 10, 4);
+
+  glTexCoord2f(1.0f, 1.0f);
   glVertex3f(6, 6, 4);
-  // rectangulo lateral izq
+
+  // lado izquierdo del techo
   glNormal3f(-0.555f, 0.832f, 0.0f);
+
+  glTexCoord2f(0.0f, 0.0f);
   glVertex3f(-6, 6, -4);
+
+  glTexCoord2f(1.0f, 0.0f);
   glVertex3f(-6, 6, 4);
+
+  glTexCoord2f(1.0f, 1.0f);
   glVertex3f(0, 10, 4);
+
+  glTexCoord2f(0.0f, 1.0f);
   glVertex3f(0, 10, -4);
 
   glEnd();
@@ -322,16 +379,27 @@ void drawTree() {
   // glColor3f(0.55, 0.27, 0.07); // Brown color for the trunk
   glTranslatef(0.0f, 1.0f, -10.0f);
   glRotatef(-90, 1, 0, 0);
+
   setTrunkMaterial();
+
   GLUquadric *quad = gluNewQuadric();
+  glBindTexture(GL_TEXTURE_2D, texBark);
+  gluQuadricTexture(quad, GL_TRUE);
   gluCylinder(quad, 2.0f, 2.0f, 12.0f, 32, 32); // Draw the cylinder
   gluDeleteQuadric(quad);
 
   // drawSphere
   // glColor3f(0.0f, 0.5f, 0.0f);     // Green color for the foliage
-  glTranslatef(0.0f, 0.0f, 12.0f); // Move to the top of the trunk
+  glTranslatef(0.0f, 0.0f, 12.0f);
+
   setLeavesMaterial();
-  glutSolidSphere(4.0f, 32, 32); // Draw the sphere for foliage
+
+  GLUquadric *leaf = gluNewQuadric();
+  gluQuadricTexture(leaf, GL_TRUE);
+  glBindTexture(GL_TEXTURE_2D, texLeaves);
+  gluSphere(leaf, 4.0f, 32, 32);
+  gluDeleteQuadric(leaf);
+
   glPopMatrix();
 }
 
