@@ -158,9 +158,9 @@ GLvoid initGL() {
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_NORMALIZE);
 
-  GLfloat light_position[] = {0.0f, 10.0f, 10.0f, 0.0f};
-  GLfloat light_ambient[] = {0.2f, 0.2f, 0.2f, 1.0f};
-  GLfloat light_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+  GLfloat light_position[] = {0.0f, 10.0f, 10.0f, 1.0f};
+  GLfloat light_ambient[] = {0.3f, 0.3f, 0.3f, 1.0f};
+  GLfloat light_diffuse[] = {1.0f, 0.8f, 0.8f, 1.0f};
   GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
 
   glLightfv(GL_LIGHT0, GL_POSITION, light_position);
