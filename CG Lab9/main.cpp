@@ -1,10 +1,10 @@
 #include <GLUT/glut.h> // o <GL/freeglut.h> según tu instalación
 #include <OpenGL/glu.h>
-#include <iostream>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 using namespace std;
 
 #define RED 0
@@ -13,6 +13,12 @@ using namespace std;
 #define ALPHA 1
 
 #define ECHAP 27
+
+GLuint texGrass;
+GLuint texBrick;
+GLuint texRoof;
+GLuint texBark;
+GLuint texLeaves;
 
 float teapotAngle = 0.0f;
 float teapotTranslateX = 0.0f;
@@ -57,6 +63,37 @@ int main(int argc, char **argv) {
   glutMainLoop();
 
   return 1;
+}
+
+GLuint loadTexture(const char *filename) {
+  GLuint textureID;
+
+  glGenTextures(1, &textureID);
+  glBindTexture(GL_TEXTURE_2D, textureID);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  int width, height, channels;
+
+  unsigned char *data = stbi_load(filename, &width, &height, &channels, 0);
+
+  if (data) {
+    GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format,
+                 GL_UNSIGNED_BYTE, data);
+
+    glGenerateMipmap(GL_TEXTURE_2D);
+  }
+
+  stbi_image_free(data);
+
+  return textureID;
 }
 void setFloorMaterial() {
   GLfloat ambient[] = {0.1f, 0.25f, 0.1f, 1.0f};
@@ -130,6 +167,13 @@ GLvoid initGL() {
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+  glEnable(GL_TEXTURE_2D);
+
+  texGrass = loadTexture("textures/grass.jpg");
+  texBrick = loadTexture("textures/brick.jpg");
+  texRoof = loadTexture("textures/roof.jpg");
+  texBark = loadTexture("textures/bark.jpg");
+  texLeaves = loadTexture("textures/leaves.jpg");
 }
 void drawCube(float x) {
   glPushMatrix();
